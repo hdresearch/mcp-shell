@@ -5,7 +5,13 @@ import os from 'os';
 function getConfigPath() {
   switch (process.platform) {
     case 'darwin':
-      return path.join(os.homedir(), 'Library', 'Application Support', 'Claude', 'claude_desktop_config.json');
+      return path.join(
+        os.homedir(),
+        'Library',
+        'Application Support',
+        'Claude',
+        'claude_desktop_config.json',
+      );
     case 'win32':
       return path.join(process.env.APPDATA || '', 'Claude', 'claude_desktop_config.json');
     default:
@@ -16,8 +22,8 @@ function getConfigPath() {
 export function updateConfig() {
   const isNpx = Boolean(
     process.argv[1].includes('/_npx/') ||
-    process.env.npm_command === 'exec' ||
-    process.env._?.includes('/_npx/')
+      process.env.npm_command === 'exec' ||
+      process.env._?.includes('/_npx/'),
   );
   if (!isNpx) {
     console.log('Not running via npx');
@@ -28,7 +34,7 @@ export function updateConfig() {
   const configPath = getConfigPath();
 
   try {
-    let config: { mcpServers?: {'shell-server'?: { command: string }}} = {};
+    let config: { mcpServers?: { 'shell-server'?: { command: string } } } = {};
     try {
       config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     } catch (err) {
@@ -36,9 +42,9 @@ export function updateConfig() {
     }
 
     config.mcpServers = config.mcpServers || {};
-    
+
     config.mcpServers['shell-server'] = {
-      command: scriptPath
+      command: scriptPath,
     };
 
     const configDir = path.dirname(configPath);
@@ -49,7 +55,6 @@ export function updateConfig() {
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
     console.log('Updated config at:', configPath);
     console.log('Added server with command:', scriptPath);
-
   } catch (err) {
     console.error('Error updating config:', err);
     process.exit(1);

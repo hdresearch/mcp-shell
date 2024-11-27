@@ -16,12 +16,12 @@ function splitCommand(command: string) {
   const regex = /[^\s"']+|"([^"]*)"|'([^']*)'/g;
   const args: string[] = [];
   let match;
-  
+
   while ((match = regex.exec(command)) !== null) {
     // Remove outer quotes if present
     args.push(match[1] || match[2] || match[0]);
   }
-  
+
   return args;
 }
 
@@ -76,7 +76,7 @@ class ShellServer {
         name: 'shell-server',
         version: '0.1.0',
       },
-      { capabilities: { resources: {}, tools: {} } }
+      { capabilities: { resources: {}, tools: {} } },
     );
 
     this.setupErrorHandling();
@@ -130,7 +130,10 @@ class ShellServer {
           throw new Error(`Command not allowed: ${shell_command}`);
         }
 
-        const { stdout, stderr } = await execa(shell_command, args);
+        const { stdout, stderr } = await execa(shell_command, args, {
+          shell: true,
+          env: process.env,
+        });
 
         return {
           content: [{ type: 'text', text: stdout || stderr, mimeType: 'text/plain' }],

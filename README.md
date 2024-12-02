@@ -16,6 +16,30 @@ Run `npx mcp-shell`. The server will start and listen for MCP commands via stand
 
 Start (or restart) [Claude Desktop](https://claude.ai/download) and you should see the MCP tool listed on the landing page.
 
+### Configuration with Claude Desktop
+
+To integrate with Claude Desktop, add the following configuration to your `claude_desktop_config.json` (typically located at `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+
+```json
+{
+  "mcpServers": {
+    "shell": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-shell"
+      ]
+    }
+  }
+}
+```
+
+After adding the configuration:
+1. Save the config file
+2. Restart Claude Desktop
+3. You should see a warning message about module loading - this is normal and won't affect functionality
+4. The shell commands will be available to Claude
+
 ## Security Features
 
 The server implements several security measures:

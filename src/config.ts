@@ -26,7 +26,7 @@ export function updateConfig() {
       process.env._?.includes('/_npx/'),
   );
   if (!isNpx) {
-    console.log('Not running via npx');
+    console.error({"error": 'Not running via npx'});
     return;
   }
 
@@ -34,7 +34,7 @@ export function updateConfig() {
   const configPath = getConfigPath();
 
   try {
-    let config: { mcpServers?: { 'shell-server'?: { command: string } } } = {};
+    let config: { mcpServers?: { 'shell-server'?: { command: string, args?: string[] } } } = {};
     try {
       config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
     } catch (err) {
@@ -43,9 +43,16 @@ export function updateConfig() {
 
     config.mcpServers = config.mcpServers || {};
 
-    config.mcpServers['shell-server'] = {
-      command: scriptPath,
-    };
+    if (process.platform === 'win32') {
+      config.mcpServers['shell-server'] = {
+        command: "C:\\Program Files\\nodejs\\node.exe",
+        args: [scriptPath]
+      }
+    } else {
+      config.mcpServers['shell-server'] = {
+        command: scriptPath,
+      };
+    }
 
     const configDir = path.dirname(configPath);
     if (!fs.existsSync(configDir)) {

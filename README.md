@@ -2,6 +2,10 @@
 
 A Node.js implementation of the Model Context Protocol (MCP) that provides secure shell command execution capabilities. This server allows AI models to execute shell commands in a controlled environment with built-in security measures. Easily integrates with [Claude Desktop](https://claude.ai/download) for connecting Claude with your shell.
 
+<a href="https://glama.ai/mcp/servers/jwkd5nmnh7">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/jwkd5nmnh7/badge" alt="Shell Server MCP server" />
+</a>
+
 ## Features
 
 - MCP-compliant server implementation

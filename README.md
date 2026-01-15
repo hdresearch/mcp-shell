@@ -1,5 +1,7 @@
 # Shell MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@hdresearch/mcp-shell)](https://smithery.ai/server/@hdresearch/mcp-shell)
+
 A Node.js implementation of the Model Context Protocol (MCP) that provides secure shell command execution capabilities. This server allows AI models to execute shell commands in a controlled environment with built-in security measures. Easily integrates with [Claude Desktop](https://claude.ai/download) for connecting Claude with your shell.
 
 <a href="https://glama.ai/mcp/servers/jwkd5nmnh7">
@@ -16,6 +18,15 @@ A Node.js implementation of the Model Context Protocol (MCP) that provides secur
 
 ## Installation
 
+### Installing via Smithery
+
+To install Shell MCP Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@hdresearch/mcp-shell):
+
+```bash
+npx -y @smithery/cli install @hdresearch/mcp-shell --client claude
+```
+
+### Manual Installation
 Run `npx mcp-shell`.
 
 To add it to Claude Desktop, run `npx mcp-shell config`. Or add `npx -y mcp-shell` to your config manually.
